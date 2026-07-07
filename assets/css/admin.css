@@ -1,0 +1,113 @@
+.bxr-admin {
+    --bxr-bg: #0f172a;
+    --bxr-panel: #111827;
+    --bxr-border: rgba(148, 163, 184, .25);
+    --bxr-text: #e5e7eb;
+    --bxr-muted: #94a3b8;
+    --bxr-gold: #d4af37;
+}
+
+.bxr-admin .bxr-hero-panel,
+.bxr-admin .bxr-panel,
+.bxr-admin .bxr-card {
+    background: linear-gradient(135deg, #111827, #0f172a);
+    border: 1px solid var(--bxr-border);
+    border-radius: 18px;
+    color: var(--bxr-text);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, .18);
+}
+
+.bxr-admin .bxr-hero-panel {
+    padding: 34px;
+    margin: 22px 0;
+}
+
+.bxr-admin .bxr-hero-panel h1 {
+    color: #fff;
+    font-size: 34px;
+    line-height: 1.1;
+    margin: 0 0 12px;
+}
+
+.bxr-admin .bxr-hero-panel p {
+    color: var(--bxr-muted);
+    font-size: 16px;
+    max-width: 780px;
+}
+
+.bxr-admin .bxr-kicker {
+    color: var(--bxr-gold) !important;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: 12px !important;
+}
+
+.bxr-admin .bxr-grid {
+    display: grid;
+    gap: 18px;
+    margin: 18px 0;
+}
+
+.bxr-admin .bxr-grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.bxr-admin .bxr-card {
+    padding: 22px;
+}
+
+.bxr-admin .bxr-card span {
+    display: block;
+    color: var(--bxr-muted);
+    margin-bottom: 8px;
+}
+
+.bxr-admin .bxr-card strong {
+    display: block;
+    color: #fff;
+    font-size: 34px;
+}
+
+.bxr-admin .bxr-panel {
+    padding: 24px;
+    margin: 22px 0;
+}
+
+.bxr-admin .bxr-panel h2,
+.bxr-admin .bxr-panel h1 {
+    color: #fff;
+}
+
+.bxr-admin .bxr-panel p,
+.bxr-admin .bxr-panel label span {
+    color: var(--bxr-muted);
+}
+
+.bxr-admin .bxr-settings-form label {
+    display: block;
+    margin-bottom: 18px;
+}
+
+.bxr-admin .bxr-settings-form input,
+.bxr-admin .bxr-settings-form textarea {
+    display: block;
+    width: 100%;
+    max-width: 780px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--bxr-border);
+    padding: 10px 12px;
+}
+
+@media (max-width: 960px) {
+    .bxr-admin .bxr-grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .bxr-admin .bxr-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
