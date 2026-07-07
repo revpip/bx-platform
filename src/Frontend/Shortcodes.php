@@ -2,6 +2,7 @@
 
 namespace BusinessXRay\Platform\Frontend;
 
+use BusinessXRay\Platform\Assessments\AssessmentService;
 use BusinessXRay\Platform\Settings\Settings;
 
 defined('ABSPATH') || exit;
@@ -50,12 +51,60 @@ final class Shortcodes
 
     public function assessment(): string
     {
+        $service = new AssessmentService();
+        $submission = $service->handle_submission();
+        $questions = AssessmentService::questions();
+
         ob_start();
         ?>
-        <section id="business-xray-assessment" class="bxr-public bxr-assessment-placeholder">
+        <section id="business-xray-assessment" class="bxr-public bxr-assessment">
             <p class="bxr-public__kicker"><?php esc_html_e('Free Assessment', 'business-xray-platform'); ?></p>
             <h2><?php esc_html_e('Start with a simple Business X-Ray.', 'business-xray-platform'); ?></h2>
-            <p><?php esc_html_e('The production assessment engine is the next platform module. This placeholder confirms shortcode wiring and provides the public journey for Sprint 1.', 'business-xray-platform'); ?></p>
+            <p><?php esc_html_e('Answer a few practical questions and receive an immediate Business Intelligence Score. Your answers are also saved securely for follow-up.', 'business-xray-platform'); ?></p>
+
+            <?php if (is_array($submission)) : ?>
+                <div class="bxr-result <?php echo $submission['success'] ? 'bxr-result--success' : 'bxr-result--error'; ?>">
+                    <strong><?php echo esc_html($submission['message']); ?></strong>
+                    <?php if ($submission['success']) : ?>
+                        <span><?php printf(esc_html__('Score: %1$d / 100 — %2$s', 'business-xray-platform'), (int) $submission['score'], esc_html($submission['band'])); ?></span>
+                        <p><?php echo esc_html($submission['recommendation']); ?></p>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (! is_array($submission) || empty($submission['success'])) : ?>
+                <form method="post" class="bxr-assessment-form">
+                    <?php wp_nonce_field(AssessmentService::ACTION, 'bxr_nonce'); ?>
+                    <input type="hidden" name="bxr_action" value="<?php echo esc_attr(AssessmentService::ACTION); ?>">
+
+                    <div class="bxr-form-grid">
+                        <label><?php esc_html_e('Business name', 'business-xray-platform'); ?><input type="text" name="business_name" required></label>
+                        <label><?php esc_html_e('Your name', 'business-xray-platform'); ?><input type="text" name="contact_name"></label>
+                        <label><?php esc_html_e('Email address', 'business-xray-platform'); ?><input type="email" name="email" required></label>
+                        <label><?php esc_html_e('Website', 'business-xray-platform'); ?><input type="url" name="website"></label>
+                        <label><?php esc_html_e('Industry', 'business-xray-platform'); ?><input type="text" name="industry"></label>
+                    </div>
+
+                    <label class="bxr-full-field"><?php esc_html_e('What is the biggest frustration in the business right now?', 'business-xray-platform'); ?><textarea name="biggest_frustration" rows="4"></textarea></label>
+
+                    <div class="bxr-question-list">
+                        <?php foreach ($questions as $key => $question) : ?>
+                            <fieldset class="bxr-question">
+                                <legend><?php echo esc_html($question['label']); ?></legend>
+                                <span class="bxr-question__pillar"><?php echo esc_html($question['pillar']); ?></span>
+                                <?php foreach ($question['options'] as $score => $label) : ?>
+                                    <label class="bxr-option">
+                                        <input type="radio" name="bxr_answers[<?php echo esc_attr($key); ?>]" value="<?php echo esc_attr($score); ?>" required>
+                                        <span><?php echo esc_html($label); ?></span>
+                                    </label>
+                                <?php endforeach; ?>
+                            </fieldset>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <button type="submit" class="bxr-public__button"><?php esc_html_e('Calculate my Business X-Ray score', 'business-xray-platform'); ?></button>
+                </form>
+            <?php endif; ?>
         </section>
         <?php
         return (string) ob_get_clean();
