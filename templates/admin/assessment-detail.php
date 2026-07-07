@@ -28,7 +28,7 @@ $answer_values = is_array($answers['answers'] ?? null) ? $answers['answers'] : [
 $frustration = isset($answers['biggest_frustration']) ? (string) $answers['biggest_frustration'] : '';
 ?>
 <div class="wrap bxr-admin">
-    <p><a href="<?php echo esc_url(admin_url('admin.php?page=bxr-assessments')); ?>">← <?php esc_html_e('Back to assessments', 'business-xray-platform'); ?></a></p>
+    <p><a href="<?php echo esc_url(admin_url('admin.php?page=bxr-assessments')); ?>"><?php esc_html_e('Back to assessments', 'business-xray-platform'); ?></a></p>
 
     <?php if (! $assessment) : ?>
         <div class="bxr-panel">
@@ -36,16 +36,18 @@ $frustration = isset($answers['biggest_frustration']) ? (string) $answers['bigge
             <p><?php esc_html_e('The requested Business X-Ray assessment could not be found.', 'business-xray-platform'); ?></p>
         </div>
     <?php else : ?>
+        <?php $report_url = admin_url('admin.php?page=bxr-report-preview&assessment_id=' . (int) $assessment->id); ?>
         <div class="bxr-hero-panel">
             <p class="bxr-kicker"><?php esc_html_e('Business X-Ray Detail', 'business-xray-platform'); ?></p>
             <h1><?php echo esc_html($assessment->name); ?></h1>
-            <p><?php echo esc_html($assessment->email); ?> · <?php echo esc_url($assessment->website); ?></p>
+            <p><?php echo esc_html($assessment->email); ?> / <?php echo esc_url($assessment->website); ?></p>
+            <p><a class="button button-primary" href="<?php echo esc_url($report_url); ?>"><?php esc_html_e('Preview Report', 'business-xray-platform'); ?></a></p>
         </div>
 
         <div class="bxr-grid bxr-grid-4">
             <div class="bxr-card"><span><?php esc_html_e('Overall Score', 'business-xray-platform'); ?></span><strong><?php echo esc_html((string) $assessment->overall_score); ?></strong></div>
-            <div class="bxr-card"><span><?php esc_html_e('Band', 'business-xray-platform'); ?></span><strong><?php echo esc_html((string) ($scores['band'] ?? '—')); ?></strong></div>
-            <div class="bxr-card"><span><?php esc_html_e('Industry', 'business-xray-platform'); ?></span><strong><?php echo esc_html($organisation->industry ?? '—'); ?></strong></div>
+            <div class="bxr-card"><span><?php esc_html_e('Band', 'business-xray-platform'); ?></span><strong><?php echo esc_html((string) ($scores['band'] ?? '-')); ?></strong></div>
+            <div class="bxr-card"><span><?php esc_html_e('Industry', 'business-xray-platform'); ?></span><strong><?php echo esc_html($organisation->industry ?? '-'); ?></strong></div>
             <div class="bxr-card"><span><?php esc_html_e('Status', 'business-xray-platform'); ?></span><strong><?php echo esc_html(ucfirst($organisation->status ?? 'assessment')); ?></strong></div>
         </div>
 
@@ -96,7 +98,7 @@ $frustration = isset($answers['biggest_frustration']) ? (string) $answers['bigge
             <?php if (! empty($activity)) : ?>
                 <ul class="bxr-activity-list">
                     <?php foreach ($activity as $item) : ?>
-                        <li><strong><?php echo esc_html($item->created_at); ?></strong> — <?php echo esc_html($item->summary); ?></li>
+                        <li><strong><?php echo esc_html($item->created_at); ?></strong> - <?php echo esc_html($item->summary); ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php else : ?>
