@@ -27,6 +27,7 @@ final class AdminMenu
         add_submenu_page('bxr-dashboard', __('Dashboard', 'business-xray-platform'), __('Dashboard', 'business-xray-platform'), 'manage_options', 'bxr-dashboard', [$this, 'render_dashboard']);
         add_submenu_page('bxr-dashboard', __('Businesses', 'business-xray-platform'), __('Businesses', 'business-xray-platform'), 'manage_options', 'bxr-businesses', [$this, 'render_businesses']);
         add_submenu_page('bxr-dashboard', __('Assessments', 'business-xray-platform'), __('Assessments', 'business-xray-platform'), 'manage_options', 'bxr-assessments', [$this, 'render_assessments']);
+        add_submenu_page('bxr-dashboard', __('Tasks', 'business-xray-platform'), __('Tasks', 'business-xray-platform'), 'manage_options', 'bxr-tasks', [$this, 'render_tasks']);
         add_submenu_page(null, __('Assessment Detail', 'business-xray-platform'), __('Assessment Detail', 'business-xray-platform'), 'manage_options', 'bxr-assessment-detail', [$this, 'render_assessment_detail']);
         add_submenu_page('bxr-dashboard', __('Settings', 'business-xray-platform'), __('Settings', 'business-xray-platform'), 'manage_options', 'bxr-settings', [$this, 'render_settings']);
     }
@@ -53,6 +54,11 @@ final class AdminMenu
     public function render_assessments(): void
     {
         include BXR_PLATFORM_DIR . 'templates/admin/assessments.php';
+    }
+
+    public function render_tasks(): void
+    {
+        include BXR_PLATFORM_DIR . 'templates/admin/tasks.php';
     }
 
     public function render_assessment_detail(): void
