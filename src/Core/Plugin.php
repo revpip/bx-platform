@@ -3,6 +3,7 @@
 namespace BusinessXRay\Platform\Core;
 
 use BusinessXRay\Platform\Admin\AdminMenu;
+use BusinessXRay\Platform\Frontend\Shortcodes;
 use BusinessXRay\Platform\Settings\Settings;
 
 defined('ABSPATH') || exit;
@@ -27,6 +28,8 @@ final class Plugin
     public function boot(): void
     {
         add_action('init', [$this, 'load_textdomain']);
+
+        (new Shortcodes())->register();
 
         if (is_admin()) {
             (new AdminMenu())->register();
