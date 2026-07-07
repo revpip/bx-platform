@@ -16,7 +16,7 @@
 }
 
 .bxr-public__hero,
-.bxr-assessment-placeholder,
+.bxr-assessment,
 .bxr-pricing {
     position: relative;
     overflow: hidden;
@@ -83,11 +83,13 @@
     justify-content: center;
     min-height: 46px;
     padding: .8rem 1.2rem;
+    border: 0;
     border-radius: 999px;
     background: var(--bxr-gold);
     color: #111827;
     font-weight: 900;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .bxr-public__button--ghost {
@@ -125,8 +127,109 @@
     color: var(--bxr-muted);
 }
 
+.bxr-assessment-form {
+    margin-top: 2rem;
+}
+
+.bxr-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.bxr-assessment-form label,
+.bxr-full-field {
+    display: block;
+    color: #e5e7eb;
+    font-weight: 800;
+}
+
+.bxr-assessment-form input,
+.bxr-assessment-form textarea {
+    display: block;
+    width: 100%;
+    margin-top: .45rem;
+    padding: .85rem 1rem;
+    border: 1px solid rgba(148, 163, 184, .28);
+    border-radius: 14px;
+    background: rgba(2, 6, 23, .55);
+    color: #fff;
+    font: inherit;
+}
+
+.bxr-full-field {
+    margin: 1rem 0;
+}
+
+.bxr-question-list {
+    display: grid;
+    gap: 1rem;
+    margin: 1.4rem 0;
+}
+
+.bxr-question {
+    border: 1px solid rgba(148, 163, 184, .22);
+    border-radius: 22px;
+    padding: 1.2rem;
+    background: rgba(15, 23, 42, .62);
+}
+
+.bxr-question legend {
+    color: #fff;
+    font-weight: 900;
+    padding: 0 .3rem;
+}
+
+.bxr-question__pillar {
+    display: inline-flex;
+    margin: .5rem 0 .8rem;
+    color: var(--bxr-gold);
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.bxr-option {
+    display: flex !important;
+    align-items: flex-start;
+    gap: .75rem;
+    margin: .6rem 0;
+    color: var(--bxr-muted) !important;
+    font-weight: 600 !important;
+}
+
+.bxr-option input {
+    width: auto;
+    margin-top: .2rem;
+}
+
+.bxr-result {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(148, 163, 184, .24);
+    background: rgba(15, 23, 42, .74);
+}
+
+.bxr-result strong,
+.bxr-result span {
+    display: block;
+    color: #fff;
+    margin-bottom: .5rem;
+}
+
+.bxr-result--success {
+    border-color: rgba(16, 185, 129, .45);
+}
+
+.bxr-result--error {
+    border-color: rgba(239, 68, 68, .45);
+}
+
 @media (max-width: 760px) {
-    .bxr-public__grid {
+    .bxr-public__grid,
+    .bxr-form-grid {
         grid-template-columns: 1fr;
     }
 }
