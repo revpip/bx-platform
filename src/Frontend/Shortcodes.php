@@ -15,6 +15,7 @@ final class Shortcodes
         add_shortcode('business_xray_landing_page', [$this, 'landing_page']);
         add_shortcode('business_xray_assessment', [$this, 'assessment']);
         add_shortcode('business_xray_pricing', [$this, 'pricing']);
+        add_shortcode('business_xray_report_preview', [$this, 'report_preview']);
     }
 
     public function enqueue_assets(): void
@@ -66,7 +67,7 @@ final class Shortcodes
                 <div class="bxr-result <?php echo $submission['success'] ? 'bxr-result--success' : 'bxr-result--error'; ?>">
                     <strong><?php echo esc_html($submission['message']); ?></strong>
                     <?php if ($submission['success']) : ?>
-                        <span><?php printf(esc_html__('Score: %1$d / 100 — %2$s', 'business-xray-platform'), (int) $submission['score'], esc_html($submission['band'])); ?></span>
+                        <span><?php printf(esc_html__('Score: %1$d / 100 - %2$s', 'business-xray-platform'), (int) $submission['score'], esc_html($submission['band'])); ?></span>
                         <p><?php echo esc_html($submission['recommendation']); ?></p>
                     <?php endif; ?>
                 </div>
@@ -121,6 +122,24 @@ final class Shortcodes
                 <article><strong><?php esc_html_e('Free', 'business-xray-platform'); ?></strong><span><?php esc_html_e('Initial website and friction scan.', 'business-xray-platform'); ?></span></article>
                 <article><strong><?php esc_html_e('Business X-Ray', 'business-xray-platform'); ?></strong><span><?php esc_html_e('Full assessment, findings report and 90-day roadmap.', 'business-xray-platform'); ?></span></article>
                 <article><strong><?php esc_html_e('Growth Partner', 'business-xray-platform'); ?></strong><span><?php esc_html_e('Ongoing review, implementation support and progress tracking.', 'business-xray-platform'); ?></span></article>
+            </div>
+        </section>
+        <?php
+        return (string) ob_get_clean();
+    }
+
+    public function report_preview(): string
+    {
+        ob_start();
+        ?>
+        <section class="bxr-public bxr-report-teaser">
+            <p class="bxr-public__kicker"><?php esc_html_e('Report Preview', 'business-xray-platform'); ?></p>
+            <h2><?php esc_html_e('A report a business owner can actually use.', 'business-xray-platform'); ?></h2>
+            <p><?php esc_html_e('Business X-Ray reports are designed to be clear, practical and board-ready. They explain what was found, why it matters and what should happen next.', 'business-xray-platform'); ?></p>
+            <div class="bxr-public__grid">
+                <article><strong><?php esc_html_e('Executive Summary', 'business-xray-platform'); ?></strong><span><?php esc_html_e('Plain-English diagnosis of the main pattern affecting the business.', 'business-xray-platform'); ?></span></article>
+                <article><strong><?php esc_html_e('Opportunity Map', 'business-xray-platform'); ?></strong><span><?php esc_html_e('Prioritised improvements by value, urgency and effort.', 'business-xray-platform'); ?></span></article>
+                <article><strong><?php esc_html_e('30-Day Sprint', 'business-xray-platform'); ?></strong><span><?php esc_html_e('A focused action plan to create progress without overwhelming the owner.', 'business-xray-platform'); ?></span></article>
             </div>
         </section>
         <?php
